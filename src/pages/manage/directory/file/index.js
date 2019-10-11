@@ -14,10 +14,10 @@ const FileHeader = ()=> {
                 <div>
                     <ul>
                         <li>
-                            <Link to = "/">新建文件夹</Link>
+                            <Link to = "/manage/directory/file/EditFile">新建文件夹</Link>
                         </li>
                         <li>
-                            <Link to = "/">新建文档</Link>
+                            <Link to = "/manage/directory/file/EditFile">新建文档</Link>
                         </li>
                         <li>
                             <Link to = "/">新建图片</Link>
