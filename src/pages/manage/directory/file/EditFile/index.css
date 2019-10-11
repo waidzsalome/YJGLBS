@@ -18,7 +18,6 @@
     max-width: 606px;
 }
 
-/*  */
 .Edit{
     width: 930px;
     margin-left: 10px;
@@ -45,12 +44,85 @@
 }
 
 .MainContainLift{
-    min-width: 400px;
-    max-width: 606px;
+    width: 606px;
+    text-align: left!important;
 }
 
 .MainContainRight{
     width: 286px;
+    background: #FFFFFF;
+    border-left: 1px solid #979797;
+    border-right: 1px solid #979797;
+    margin-left: 20px;
+}
+
+.MainContainRightFirst{
+    background: #FFFFFF;
+    border-top: 1px solid #979797;
+    border-bottom: 1px solid #979797;
+    font-family: PingFangSC-Regular;
+    font-size: 20px;
+    color: #000000;
+    letter-spacing: 0;
+    text-align: left;
+    padding-left: 10px;
+    margin: 0;
+}
+
+.MainContainRightSecond{
+    font-family: PingFangSC-Regular;
+    font-size: 18px;
+    color: #000000;
+    letter-spacing: 0;
+    padding-left: 10px;
+    margin: 50px 0;
+    text-align: left;
+    margin-top: 20px;
+}
+
+.MainContainRightThird{
+    width: 284px;
+    height: 43px;
+    background: #FFFFFF;
+    border-top: 1px solid #979797;
+    border-bottom: 1px solid #979797;
+    display: flex;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.MainContainRightThirdLeft{
+    width: 108px;
+    height: 32px;
+    background: #FFFFFF;
+    border: 1px solid #117E93;
+    border-radius: 6px;
+    border-radius: 6px;
+    font-family: PingFangSC-Regular;
+    font-size: 18px;
+    color: #117E93;
+    letter-spacing: 0;
+    text-align: center;
+    margin-top: 5px;
+}
+
+.MainContainRightThirdMiddle{
+    flex: 1;
+}
+
+.MainContainRightThirdRight{
+    width: 60px;
+    height: 30px;
+    background: #FFFFFF;
+    border: 1px solid #117E93;
+    border-radius: 9px;
+    border-radius: 9px;
+    font-family: PingFangSC-Regular;
+    font-size: 18px;
+    color: #117E93;
+    letter-spacing: 0;
+    text-align: center;
+    margin-top: 5px;
 }
 
 .FooterContainMain{
@@ -62,7 +134,9 @@
     /* min-width: 400px!important;
     max-width: 606px!important; */
     height: 254px!important;
-    text-align: left;        
+    text-align: left;  
+    margin-top: 20px;  
+    margin-bottom: 200px;    
 }
 
 .FooterContainHead{

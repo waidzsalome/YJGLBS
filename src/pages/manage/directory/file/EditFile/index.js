@@ -36,7 +36,20 @@ const MainContain = () =>{
                 <img src={require('../../../../../assets/tupian-2.png') } style={{textAlign: "left"}} />
             </div>
             <div  className={styles.MainContainRight}>
-
+                <div className={styles.MainContainRightFirst}>
+                    文件详情
+                </div>
+                <div className={styles.MainContainRightSecond}>
+                    <div>上传时间：2019年10月7日 10:39</div>
+                    <div>文件名：数据埋点.dox</div>
+                    <div>文件类型：DOCX</div>
+                    <div>文件大小：113KB</div>
+                </div>
+                <div className={styles.MainContainRightThird}>
+                    <div className={styles.MainContainRightThirdLeft}>确认上传</div>
+                    <div className={styles.MainContainRightThirdMiddle}></div>
+                    <div className={styles.MainContainRightThirdRight}>上传</div>
+                </div>
             </div>
         </div>
     )
