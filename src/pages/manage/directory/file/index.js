@@ -2,10 +2,11 @@ import React from "react";
 import styles from "./index.css";
 import { Button } from "antd";
 import Link from "umi/link";
-import { Checkbox, Row, Col, Popover,Card } from 'antd';
+import { Checkbox, Row, Col, Popover,Card,Input } from 'antd';
 import { useState, useEffect } from "react";
 import classnames from "classnames";
 
+const { Search } = Input;
 const CheckboxGroup = Checkbox.Group;
 const plainOptions = ['Apple', 'Pear', 'Orange'];
 const defaultCheckedList = ['Apple', 'Orange'];
@@ -119,6 +120,7 @@ const FileHeader = ()=> {
                 </div>
 
             </div>
+            <Search placeholder="请输入搜索内容" onSearch={value => console.log(value)} enterButton className = {styles.search} />
         </div>
     )
 }

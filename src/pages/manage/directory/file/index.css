@@ -4,7 +4,7 @@
     align-items: center;
     height: 70px;
     width: 100%;
-
+    position: relative;
 }
 .hide {
     display: none;
@@ -119,4 +119,10 @@
 }
 .checkBox {
     margin: 0 15px;
+}
+.search {
+    width: 250px;
+    position: absolute;
+    top: 15px;
+    right: 150px;
 }
