@@ -16,6 +16,12 @@ const menuList = [
   {
     title: '内容管理',
     key: '/manage/context',
+    children: [
+      {
+        title: '富文本编辑器',
+        key: '/manage/context/create'
+      }
+    ]
   },
   {
     title: '区块管理',

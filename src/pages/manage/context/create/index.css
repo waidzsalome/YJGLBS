@@ -1,0 +1,13 @@
+.demo-container {
+  margin-top: 20px;
+}
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.bottomButton {
+  float: left;
+  height: 90px;
+  width: 362px;
+}
