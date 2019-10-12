@@ -126,3 +126,11 @@
     top: 15px;
     right: 150px;
 }
+.handle {
+    width: 400px;
+    display: flex;
+    align-items: center;
+}
+.handle>p,.handle>div {
+    margin-left: 20px;
+}
