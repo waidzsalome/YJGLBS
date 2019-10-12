@@ -47,5 +47,9 @@ const menuList = [
     title: '操作日志',
     key: '/manage/log'
   },
+  {
+    title: '个人信息',
+    key: '/manage/user'
+  },
 ];
 export default menuList;
