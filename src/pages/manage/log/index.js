@@ -1,5 +1,5 @@
 import React from "react";
-import { Table, Divider, Tag } from 'antd';
+import { Table, Divider, Tag, Pagination } from 'antd';
 import logData from "../../../assets/logData";
 
 const columns = [
@@ -51,7 +51,11 @@ const columns = [
 const Log = ()=> {
     return(
         <div>
-            <Table columns={columns} dataSource={logData} />
+            <h3>
+              操作日志
+            </h3>
+            <Table columns={columns} dataSource={logData} style = {{width:"80%",margin: "0 auto"}} Pagination = {false} />
+            {/* <Pagination defaultCurrent={1} total={50} pageSizeOptions = {["5"]} /> */}
         </div>
     )
 }
