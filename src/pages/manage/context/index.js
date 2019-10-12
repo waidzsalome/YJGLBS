@@ -36,7 +36,7 @@ const columns = [
     key: 'isShow',
     dataIndex:"isShow",
     render:isShow=>(
-        <Switch checkedChildren="开" unCheckedChildren="关" defaultChecked = {isShow}  />
+        <Switch checkedChildren="显示" unCheckedChildren="隐藏" defaultChecked = {isShow}  />
     ),
     },
 ];

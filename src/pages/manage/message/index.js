@@ -58,7 +58,10 @@ const columns = [
 
 const rowSelection = {
   onChange: (selectedRowKeys, selectedRows) => {
-    console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+    const  selectedId = selectedRows.map((item)=>{
+      return item.id;
+    })
+    console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedId );
   },
   getCheckboxProps: record => ({
     disabled: record.name === 'Disabled User', // Column configuration not to be checked
