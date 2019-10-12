@@ -12,6 +12,7 @@
     "antd": "^3.19.5",
     "braft-editor": "^2.3.8",
     "dva": "^2.6.0-beta.6",
+    "classnames": "^2.2.6",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "umi-request": "^1.2.7"

@@ -1,5 +1,33 @@
 .header {
-  line-height: 66px;
-  height: 66px;
-  background-color: #fff;
+  line-height: 85px;
+  height: 85px;
+  background-color:#001529;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.header>span,a {
+  margin-right: 15px;
+}
+.toHome {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  background: url("../../../../assets/fanhuishouye.png");
+}
+.toIssue {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  background: url("../../../../assets/xiaoxi.png");
+}
+.logOut {
+  display: inline-block;
+  width: 25px;
+  height: 32px;
+  background: url("../../../../assets/tuichudenglu.png");
+  cursor: pointer;
+}
+.userName {
+  color: white;
 }
