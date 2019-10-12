@@ -12,7 +12,10 @@ const getFileContent = (content)=>{
     </div>
   )
 }
-
+const del = (id)=> {
+  console.log("永久删除",id);
+  //在这里写永久删除按钮的函数
+}
 const columns = [
   {
     title: '文件',
@@ -26,7 +29,7 @@ const columns = [
           <p> { file.type } </p>
           <div> 
           <Button size = "small">编辑</Button>  
-          <Button size = "small">永久删除</Button>  
+          <Button size = "small" onClick = {()=>{ del( file.id ) }} >永久删除</Button>  
           <Popover content={getFileContent(file.content)}>
             <Button size = "small">查看说明</Button>  
           </Popover>
@@ -51,7 +54,11 @@ const columns = [
 
 const rowSelection = {
   onChange: (selectedRowKeys, selectedRows) => {
-    console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+    const selectedId = selectedRows.map((item)=>{
+      return item.id;
+    })
+    console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedId);
+    //这里获取了所以被选中的选项的id
   },
   getCheckboxProps: record => ({
     disabled: record.name === 'Disabled User', // Column configuration not to be checked

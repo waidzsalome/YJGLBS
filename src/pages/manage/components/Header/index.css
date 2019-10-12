@@ -26,6 +26,7 @@
   width: 25px;
   height: 32px;
   background: url("../../../../assets/tuichudenglu.png");
+  cursor: pointer;
 }
 .userName {
   color: white;

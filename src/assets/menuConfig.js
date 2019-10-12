@@ -1,8 +1,8 @@
 const menuList = [
-  {
-    title: '首页',
-    key: '/manage'
-  },
+  // {
+  //   title: '首页',
+  //   key: '/manage'
+  // },
   {
     title: '栏目管理',
     key: '/manage/column',
