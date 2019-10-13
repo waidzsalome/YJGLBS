@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { Menu } from 'antd';
+import { Menu, Input } from 'antd';
 import Link from 'umi/link'
 // import { NavLink } from 'react-router-dom'
 import MenuConfig from './../../../../assets/menuConfig'
 import styles from './index.css'
 const SubMenu = Menu.SubMenu;
+
+const { Search } = Input;
 
 function NavLeft() {
   function renderMenu(data) {
@@ -28,6 +30,11 @@ function NavLeft() {
   }, []);
   return (
     <div>
+      <Search
+        placeholder="input search text"
+        onSearch={value => console.log(value)}
+        style={{ width: 200, marginTop: '30px' }}
+      />
       <Link to="/home">
         <div className={styles.logo}>
           <img src="" alt=""/>

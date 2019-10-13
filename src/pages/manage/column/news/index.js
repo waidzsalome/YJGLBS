@@ -1,3 +1,3 @@
 export default () => {
-  return <div>news</div>
+  return <div style={{height:'1000px', background: 'red'}}>news</div>
 }

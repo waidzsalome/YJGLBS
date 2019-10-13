@@ -8,10 +8,10 @@ function BasicLayout(props) {
   return (
     <div>
       <Row className={styles.container}>
-        <Col span="4" className={styles.nav_left}>
+        <Col span={4} className={styles.nav_left}>
           <NavLeft/>
         </Col>
-        <Col span="20" className={styles.main}>
+        <Col span={20} className={styles.main}>
           <Header/>
           <Row className={styles.content}>
             {props.children}

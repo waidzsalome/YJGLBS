@@ -1,8 +1,8 @@
 const menuList = [
-  {
-    title: '首页',
-    key: '/manage'
-  },
+  // {
+  //   title: '首页',
+  //   key: '/manage'
+  // },
   {
     title: '栏目管理',
     key: '/manage/column',
@@ -16,6 +16,12 @@ const menuList = [
   {
     title: '内容管理',
     key: '/manage/context',
+    children: [
+      {
+        title: '富文本编辑器',
+        key: '/manage/context/create'
+      }
+    ]
   },
   {
     title: '区块管理',
@@ -46,6 +52,10 @@ const menuList = [
   {
     title: '操作日志',
     key: '/manage/log'
+  },
+  {
+    title: '个人信息',
+    key: '/manage/user'
   },
 ];
 export default menuList;
