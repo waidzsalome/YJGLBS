@@ -1,0 +1,48 @@
+.column {
+  text-align: center!important;
+}
+.radioGroup {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+}
+.submitBtn {
+  width: 120px;
+  height: 47px;
+  border-radius: 11px;
+  margin-top: 41px;
+  margin-bottom: 20px;
+}
+.radio + * {
+  padding: 0;
+}
+.editBtn {
+  width: 100px;
+  height: 39px;
+  margin-left: 40px;
+  border-radius: 11px;
+}
+.list {
+  display: flex;
+  flex-flow: row nowrap;
+  width: 679px;
+  height: 39px;
+}
+.li {
+  list-style: none;
+  background-color: #001529;
+  flex: 1 1 auto;
+}
+.navText {
+  color: #fff;
+  display: block;
+  font-size: 14px;
+  margin-top: 10px;
+}
+.navTextB {
+  color: #fff;
+  display: block;
+  font-size: 14px;
+  margin-top: 10px;
+  border-right: 1px solid #979797;
+}
