@@ -86,10 +86,10 @@ const FileHeader = ()=> {
                 <div >
                     <ul className = {isCreateShow?styles.createList:styles.hide}>
                         <li>
-                            <Link to = "/">新建文件夹</Link>
+                            <Link to = "/manage/directory/file/EditFile">新建文件夹</Link>
                         </li>
                         <li>
-                            <Link to = "/manage/directory/file/CreateFile">新建文档</Link>
+                            <Link to = "/manage/directory/file/EditFile">新建文档</Link>
                         </li>
                         <li>
                             <Link to = "/">新建图片</Link>

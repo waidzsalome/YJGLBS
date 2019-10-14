@@ -16,7 +16,7 @@
     "dva": "^2.6.0-beta.6",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "umi-request": "^1.2.7"
+    "umi-request": "^1.2.8"
   },
   "devDependencies": {
     "@types/jest": "^23.3.12",
