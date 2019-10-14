@@ -135,7 +135,7 @@
     max-width: 606px!important; */
     height: 254px!important;
     text-align: left;  
-    margin-top: 20px;  
+    /* margin-top: 20px;   */
     margin-bottom: 200px;    
 }
 
@@ -145,7 +145,7 @@
 }
 
 .FooterContainHeadLeft{
-    width: 126px;
+    width: 150px;
 }
 
 .FooterContainHeadCenter{
