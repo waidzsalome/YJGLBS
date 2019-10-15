@@ -1,8 +1,9 @@
 import React from "react";
 import styles from "./index.css";
-import { Table, Button } from 'antd';
-import messageData from "../../../assets/messageData";
-
+import { Table, Button, message } from 'antd';
+import axios from "axios";
+import { useEffect, useState } from "react";
+// import messageData from "../../../assets/messageData";
 const columns = [
   {
     title: '操作人',
@@ -86,6 +87,28 @@ const rowSelection = {
 };
 
 const Message = ()=> {
+  const [ messageData,setmessageData ] = useState([]);
+  useEffect(()=>{
+    axios({
+      method:"GET",
+      url:"http://yjxt.elatis.cn/messages/getPageInfo?limit=1&offset=0",
+      headers: {
+        token:"adminToken"
+      }
+    }).then(
+      (res)=> {
+        if(res.data.code === 0) {
+          setmessageData(res.data.data);
+        }
+        else {
+          message.error(res.data.message);
+        }
+      }
+    ).catch((error)=>{
+      console.log(error);
+    })
+  })
+
     return(
         <div>
             <h3>消息通知</h3>

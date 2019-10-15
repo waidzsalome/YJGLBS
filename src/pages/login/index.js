@@ -25,7 +25,7 @@ class NormalLoginForm extends React.Component {
         const tmp = values;
         tmp.keep_alive = Number(values.keep_alive)
         console.log(tmp);
-        axios.post({
+        axios({
           method:'POST',
           url:'http://yjxt.elatis.cn/users/login',
           data: {
