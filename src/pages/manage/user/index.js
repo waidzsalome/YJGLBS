@@ -23,6 +23,7 @@ class NormalLoginForm extends React.Component {
     const { getFieldDecorator } = this.props.form;
     return (
       <Form onSubmit={this.handleSubmit} className= { styles.input }>
+
 <Form.Item>
           {getFieldDecorator('oldpassword', {
             rules: [{ required: true, message: '请输入原始密码!' }],
@@ -83,8 +84,6 @@ const UserInfo = ()=> {
         </div>
     )
 }
-
-
 const User = ()=> {
     return (
         <div>

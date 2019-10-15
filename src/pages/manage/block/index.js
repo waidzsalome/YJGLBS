@@ -8,7 +8,7 @@ const HeaderScroll = ()=> {
     return(
         <div>
             <h3>顶部滚动条</h3><Button>添加顶部滚动条</Button>
-            <Table columns={blockCol.headerScrollCol} dataSource={ blockData.headerScrollData } />
+            <Table columns={blockCol.headerScrollCol} dataSource={ blockData.headerScrollData }  pagination = {false}/>
         </div>
     )
 }
@@ -16,7 +16,7 @@ const Carousel = ()=> {
     return(
         <div>
             <h3>轮播图</h3><Button>添加轮播图</Button>
-            <Table columns={blockCol.carouselCol } dataSource={ blockData.carouselData} />
+            <Table columns={blockCol.carouselCol } dataSource={ blockData.carouselData}  pagination = {false}/>
         </div>
     )
 }
@@ -25,7 +25,7 @@ const HomeTopic = ()=> {
     return(
         <div>
             <h3>专题专栏</h3>
-            <Table columns={blockCol.homeTopicCol } dataSource={  blockData.homeTopicData}/>
+            <Table columns={blockCol.homeTopicCol } dataSource={  blockData.homeTopicData} pagination = {false}/>
         </div>
     )
 }
@@ -35,11 +35,11 @@ const Public = ()=> {
         <div>
             <h3>信息公开</h3>
             <h3>专栏1</h3>
-            <Table columns={blockCol.publicCol   } dataSource={  blockData.publicData1}/>
+            <Table columns={blockCol.publicCol   } dataSource={  blockData.publicData1} pagination = {false}/>
             <h3>专栏2</h3>
-            <Table columns={blockCol.publicCol   } dataSource={  blockData.publicData2}/>
+            <Table columns={blockCol.publicCol   } dataSource={  blockData.publicData2} pagination = {false}/>
             <h3>专栏3</h3>
-            <Table columns={blockCol.publicCol   } dataSource={  blockData.publicData3}/>
+            <Table columns={blockCol.publicCol   } dataSource={  blockData.publicData3} pagination = {false}/>
         </div>
     )
 }
@@ -47,7 +47,7 @@ const Background = ()=> {
     return(
         <div>
              <h3>背景图片</h3>
-            <Table columns={blockCol.backgroundCol } dataSource={  blockData.backgroundData}/>
+            <Table columns={blockCol.backgroundCol } dataSource={  blockData.backgroundData} pagination = {false}/>
         </div>
     )
 }

@@ -3,24 +3,6 @@ import styles from "./index.css";
 import { Table, Button } from 'antd';
 import messageData from "../../../assets/messageData";
 
-const publish = ()=> {
-  console.log("pub")
-  //在这里写确认发布的请求
-}
-
-const handleFunc = (handle)=>{
-  if(handle) {
-    return(
-      <Button onClick = {()=>{ publish()}}>
-        确认发布
-      </Button>
-    )
-  }
-  else return (
-    <div>无可用操作</div>
-  )
-}
-
 const columns = [
   {
     title: '操作人',
@@ -36,6 +18,14 @@ const columns = [
     title: '说明',
     dataIndex: 'explan',
     key: 'explan',
+  },
+  {
+    title: '说明',
+    dataIndex: 'isRead',
+    key: 'isRead',
+    render:isRead=>(
+      <p>{ isRead?"已读":"未读" }</p>
+    )
   },
   {
     title: '操作',
@@ -56,6 +46,32 @@ const columns = [
   },
 ];
 
+const markAsRead = ()=> {
+  console.log("标记为已读");
+}
+const markAsUnRead = ()=> {
+  console.log("标记为未读");
+}
+
+
+const publish = ()=> {
+  console.log("pub")
+  //在这里写确认发布的请求
+}
+
+const handleFunc = (handle)=>{
+  if(handle) {
+    return(
+      <Button onClick = {()=>{ publish()}}>
+        确认发布
+      </Button>
+    )
+  }
+  else return (
+    <div>无可用操作</div>
+  )
+}
+
 const rowSelection = {
   onChange: (selectedRowKeys, selectedRows) => {
     const  selectedId = selectedRows.map((item)=>{
@@ -69,11 +85,18 @@ const rowSelection = {
   }),
 };
 
-
 const Message = ()=> {
     return(
         <div>
             <h3>消息通知</h3>
+            <div>
+              <Button  onClick = {()=>{markAsRead()}} >
+                标记为已读
+              </Button>
+              <Button onClick = {()=>{markAsUnRead()}}>
+                标记为未读
+              </Button>
+            </div>
             <Table columns={columns} dataSource={messageData}  rowSelection={rowSelection}/>
         </div>
     )
