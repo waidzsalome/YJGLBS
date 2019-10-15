@@ -1,8 +1,9 @@
-import React from "react";
+import React,{ useEffect, useState } from "react";
 import styles from "./index.css";
-import { Table, Button, Input, Switch } from 'antd';
+import { Table, Button, Input, Switch, message } from 'antd';
 import * as blockData from "../../../assets/blockData";
 import * as blockCol from "../../../assets/blockCol";
+import axios from "axios";
 
 const HeaderScroll = ()=> {
     return(
@@ -13,10 +14,26 @@ const HeaderScroll = ()=> {
     )
 }
 const Carousel = ()=> {
+    const [ data,setdata ] = useState([]);
+    useEffect(()=>{
+        axios.get("http://yjxt.elatis.cn/options/name/carousel").then((res)=>{
+            if(res.data.code === 0) {
+                console.log(res.data);
+                setdata(res.data.data);
+            }
+            else {
+                message.error(res.data.message);
+            }
+        })
+
+    },[]);
+
     return(
         <div>
             <h3>轮播图</h3><Button>添加轮播图</Button>
-            <Table columns={blockCol.carouselCol } dataSource={ blockData.carouselData}  pagination = {false}/>
+            <Table columns={blockCol.carouselCol } dataSource={/* blockData.carouselData   */  data}  pagination = {false}
+            // onChange = {()=>{}}
+            />
         </div>
     )
 }

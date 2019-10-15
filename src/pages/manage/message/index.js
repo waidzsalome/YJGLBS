@@ -3,35 +3,36 @@ import styles from "./index.css";
 import { Table, Button, message } from 'antd';
 import axios from "axios";
 import { useEffect, useState } from "react";
+import qs from "qs"
 // import messageData from "../../../assets/messageData";
 const columns = [
   {
     title: '操作人',
-    dataIndex: 'handler',
-    key: 'handler',
+    dataIndex: 'name',
+    key: 'name',
   },
-  {
-    title: '内容',
-    dataIndex: 'content',
-    key: 'content',
-  },
-  {
-    title: '说明',
-    dataIndex: 'explan',
-    key: 'explan',
-  },
+  // {
+  //   title: '内容',
+  //   dataIndex: 'content',
+  //   key: 'content',
+  // },
   {
     title: '说明',
-    dataIndex: 'isRead',
-    key: 'isRead',
+    dataIndex: 'explain',
+    key: 'explain',
+  },
+  {
+    title: '阅读状态',
+    dataIndex: 'status',
+    key: 'status',
     render:isRead=>(
       <p>{ isRead?"已读":"未读" }</p>
     )
   },
   {
     title: '操作',
-    key: 'handle',
-    dataIndex: 'handle',
+    key: 'operation',
+    dataIndex: 'operation',
     render: handle=>(
       <span>
         {
@@ -42,17 +43,12 @@ const columns = [
   },
   {
     title: '时间',
-    key: 'time',
-    dataIndex:"time"
+    key: 'created_at',
+    dataIndex:"created_at"
   },
 ];
 
-const markAsRead = ()=> {
-  console.log("标记为已读");
-}
-const markAsUnRead = ()=> {
-  console.log("标记为未读");
-}
+
 
 
 const publish = ()=> {
@@ -61,7 +57,7 @@ const publish = ()=> {
 }
 
 const handleFunc = (handle)=>{
-  if(handle) {
+  if(handle === "确认发布") {
     return(
       <Button onClick = {()=>{ publish()}}>
         确认发布
@@ -73,25 +69,86 @@ const handleFunc = (handle)=>{
   )
 }
 
-const rowSelection = {
-  onChange: (selectedRowKeys, selectedRows) => {
-    const  selectedId = selectedRows.map((item)=>{
-      return item.id;
-    })
-    console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedId );
-  },
-  getCheckboxProps: record => ({
-    disabled: record.name === 'Disabled User', // Column configuration not to be checked
-    name: record.name,
-  }),
-};
+
 
 const Message = ()=> {
   const [ messageData,setmessageData ] = useState([]);
+  const [ selectedid,setselectedid ] = useState([]);
+
+  const rowSelection = {
+    onChange: (selectedRowKeys, selectedRows) => {
+      const  selectedId = selectedRows.map((item)=>{
+        return item.id;
+      })
+      setselectedid(selectedId);
+      console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedId );
+
+    },
+    getCheckboxProps: record => ({
+      disabled: record.name === 'Disabled User', // Column configuration not to be checked
+      name: record.name,
+    }),
+  };
+  const markAsRead = ()=> {
+    // console.log("标记为已读");
+    selectedid.map((item)=>{
+      let data = qs.stringify({
+        status:1,
+        id:item
+      })
+      axios({
+        method: "POST",
+        url: "http://yjxt.elatis.cn/messages/alterReadStatus",
+        headers:{
+          "token":"adminToken",
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        data:data
+      }).then(
+        (res)=> {
+          if(res.data.code === 0) {
+            message.success("修改成功");
+          }
+          else {
+            message.error(res.data.message);
+          }
+        }
+      )
+    })
+  }
+  const markAsUnRead = ()=> {
+    // console.log("标记为未读");
+    selectedid.map((item) =>{
+      let data = qs.stringify({
+        status:0,
+        id:item
+      })
+      axios({
+        method: "POST",
+        url: "http://yjxt.elatis.cn/messages/alterReadStatus",
+        headers:{
+          "token":"adminToken",
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        data:data
+      }).then(
+        (res)=> {
+          if(res.data.code === 0) {
+            message.success("修改成功");
+            
+          }
+          else {
+            message.error(res.data.message);
+          }
+        }
+      )
+    })
+  }
+
   useEffect(()=>{
     axios({
       method:"GET",
-      url:"http://yjxt.elatis.cn/messages/getPageInfo?limit=1&offset=0",
+      url:"http://yjxt.elatis.cn/messages/getPageInfo?limit=10&offset=0",
       headers: {
         token:"adminToken"
       }
@@ -107,7 +164,8 @@ const Message = ()=> {
     ).catch((error)=>{
       console.log(error);
     })
-  })
+  },[]);
+  
 
     return(
         <div>

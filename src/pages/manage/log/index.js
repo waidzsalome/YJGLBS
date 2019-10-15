@@ -7,7 +7,6 @@ const columns = [
     title: '操作人员',
     dataIndex: 'name',
     key: 'name',
-    render: text => <a>{text}</a>,
   },
   {
     title: '所属部门',
@@ -23,21 +22,6 @@ const columns = [
     title: '操作行为',
     key: 'tags',
     dataIndex: 'tags',
-    // render: tags => (
-    //   <span>
-    //     {/* {tags.map(tag => {
-    //       let color = tag.length > 5 ? 'geekblue' : 'green';
-    //       if (tag === 'loser') {
-    //         color = 'volcano';
-    //       }
-    //       return (
-    //         <Tag color={color} key={tag}>
-    //           {tag.toUpperCase()}
-    //         </Tag>
-    //       );
-    //     })} */}
-    //   </span>
-    // ),
   },
   {
     title: '操作时间',
