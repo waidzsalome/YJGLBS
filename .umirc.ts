@@ -24,12 +24,12 @@ const config: IConfig =  {
     }],
   ],
 
-  proxy: {
-    "/api": {
-      "target": "http://yjxt.elatis.cn/",
-      "changeOrigin": true,
-      "pathRewrite": { "^/api" : "" }
-    }
-  }
+  // proxy: {
+  //   "/api": {
+  //     "target": "http://yjxt.elatis.cn/",
+  //     "changeOrigin": true,
+  //     "pathRewrite": { "^/api" : "" }
+  //   }
+  // }
 }
 export default config;
