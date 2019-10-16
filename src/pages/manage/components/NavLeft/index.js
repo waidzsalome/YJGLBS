@@ -30,11 +30,6 @@ function NavLeft() {
   }, []);
   return (
     <div>
-      <Search
-        placeholder="input search text"
-        onSearch={value => console.log(value)}
-        style={{ width: 200, marginTop: '30px' }}
-      />
       <Link to="/home">
         <div className={styles.logo}>
           <img src="" alt=""/>

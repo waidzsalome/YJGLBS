@@ -48,22 +48,32 @@ class NormalLoginForm extends React.Component {
   };
 
   render() {
+    const formItemLayout = {
+      labelCol: {
+        xs: { span: 24 },
+        sm: { span: 8 },
+      },
+      wrapperCol: {
+        xs: { span: 24 },
+        sm: { span: 8 },
+      },
+    };
     const { getFieldDecorator } = this.props.form;
     return (
-      <Form onSubmit={this.handleSubmit} className= { styles.input }>
+      <Form onSubmit={this.handleSubmit} /*className= { styles.input }*/ {...formItemLayout}>
 
-<Form.Item>
+<Form.Item label="原密码">
           {getFieldDecorator('oldpassword', {
             rules: [{ required: true, message: '请输入原始密码!' }],
           })(
             <Input
               prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
               type="password"
-              placeholder="原密码"
+              placeholder="请输入原始密码"
             />,
           )}
         </Form.Item>
-        <Form.Item>
+        <Form.Item label="新密码"> 
           {getFieldDecorator('newpassword1', {
             rules: [{ required: true, message: '请输入新密码!' },
           {min:6, message:"至少六个字符"},
@@ -78,7 +88,7 @@ class NormalLoginForm extends React.Component {
             />,
           )}
         </Form.Item>
-        <Form.Item>
+        <Form.Item label="再次输入密码">
 
         {getFieldDecorator('newpassword2', {
             rules: [{ required: true, message: '请输入新密码!' }],
@@ -108,7 +118,7 @@ const WrappedNormalLoginForm = Form.create({ name: 'normal_login' })(NormalLogin
 
 const UserInfo = ()=> {
     return (
-        <div>
+        <div className = {styles.userInfo}>
             <span className = { styles.title }>用户信息</span> 
             <p>{ `用户： ${userData.userName }`}</p>
             <p>{ `姓名： ${userData.realName}`}</p>

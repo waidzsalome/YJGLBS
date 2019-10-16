@@ -60,3 +60,19 @@
   height: 40px;
   margin-bottom: 20px;
 }
+.title {
+  font-size: 22px;
+
+  color: #1B1B1B;
+  width:100%;
+  display: flex;
+  justify-content: flex-start;
+}
+.title>span {
+      margin-top: 22px;
+  margin-left: 22px; 
+  border-left:  #163E80 solid 5px;
+  height: 25px;
+   line-height: 25px; 
+  padding-left: 5px;
+}

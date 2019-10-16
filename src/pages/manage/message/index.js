@@ -169,7 +169,11 @@ const Message = ()=> {
 
     return(
         <div>
-            <h3>消息通知</h3>
+            <div className = { styles.title }>
+               <span>
+                 消息通知
+               </span>
+            </div>
             <div>
               <Button  onClick = {()=>{markAsRead()}} >
                 标记为已读
