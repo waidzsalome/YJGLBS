@@ -23,7 +23,7 @@ class NormalLoginForm extends React.Component {
         //   payload: { ...values }
         // })
         const tmp = values;
-        tmp.keep_alive = Number(values.keep_alive);
+        tmp.keep_alive = Number(values.keep_alive)
         console.log(tmp);
         axios({
           method:'post',

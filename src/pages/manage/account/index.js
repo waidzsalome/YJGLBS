@@ -318,8 +318,12 @@ export default function AuthManage() {
     
   }
   return (
-    <div style={{padding: "20px 20px 0 20px"}}>
-      <h2 style={{textAlign: "left"}}>用户管理</h2>
+    <div /*style={{padding: "20px 20px 0 20px"}}*/>
+                 <div className = { styles.title }>
+               <span>
+                 账号权限
+               </span>
+            </div>
       <div style={{overflow: "hidden"}}>
         <div className={styles.auths}>
           {

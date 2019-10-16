@@ -11,21 +11,21 @@
 }
 .toHome {
   display: inline-block;
-  width: 32px;
-  height: 32px;
-  background: url("../../../../assets/fanhuishouye.png");
+  width: 16px;
+  height: 17px;
+  background: url("../../../../assets/shouye.png");
 }
 .toIssue {
   display: inline-block;
-  width: 32px;
-  height: 32px;
-  background: url("../../../../assets/xiaoxi.png");
+  width: 17px;
+  height: 17px;
+  background: url("../../../../assets/xiaoxi-2.png");
 }
 .logOut {
   display: inline-block;
-  width: 25px;
-  height: 32px;
-  background: url("../../../../assets/tuichudenglu.png");
+  width: 16px;
+  height: 17px;
+  background: url("../../../../assets/tuichu.png");
   cursor: pointer;
 }
 .userName {

@@ -62,10 +62,10 @@ export const headerScrollCol  = [
     },
     {
       title: '内容',
-      dataIndex: 'content',
-      key: 'content',
-      render: content => (
-          <Input placeholder = { content }   />
+      dataIndex: 'title',
+      key: 'title',
+      render: (content,id) => (
+          <Input placeholder = { content } onChange = {()=>{console.log(id)}}   />
       )
     },
     {
