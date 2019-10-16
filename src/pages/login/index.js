@@ -23,10 +23,10 @@ class NormalLoginForm extends React.Component {
         //   payload: { ...values }
         // })
         const tmp = values;
-        tmp.keep_alive = Number(values.keep_alive)
+        tmp.keep_alive = Number(values.keep_alive);
         console.log(tmp);
-        axios.post({
-          method:'POST',
+        axios({
+          method:'post',
           url:'http://yjxt.elatis.cn/users/login',
           data: {
             ...tmp
@@ -35,7 +35,11 @@ class NormalLoginForm extends React.Component {
             'content-type': 'application/json'
           }
         }).then(data =>{
-          console.log(data)
+          console.log(data);
+          if (data.status === 200 ) {
+            sessionStorage.setItem('token', data.data.data.token);
+            window.location.href = '/manage'
+          }
         }).catch(err => {
           console.log(err)
         })
@@ -76,14 +80,14 @@ class NormalLoginForm extends React.Component {
             {getFieldDecorator('keep_alive', {
               valuePropName: 'checked',
               initialValue: true,
-            })(<Checkbox>Remember me</Checkbox>)}
+            })(<Checkbox>记住密码</Checkbox>)}
             <a className="login-form-forgot" href="">
-              Forgot password
+              忘记密码
             </a>
             <Button type="primary" htmlType="submit" className="login-form-button">
               Log in
             </Button>
-            Or <a href="">register now!</a>
+            Or <a href="">现在登录!</a>
           </Form.Item>
         </Form>
       </div>
