@@ -49,6 +49,9 @@
   flex-flow: row nowrap;
   
 }
+:global(.index__operBtn___lntYf) {
+  padding: 0;
+}
 :global(.index__renderPsw___2joir .ant-btn span) {
   color: #e2798c;
 }

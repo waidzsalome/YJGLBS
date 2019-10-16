@@ -4,15 +4,17 @@ import styles from "./index.css";
 
 export default function Pagination () {
   return (
-      <P
-        className={styles.pagination}
-        hideOnSinglePage
-        onChange={onChange}
-        defaultCurrent={1}
-        defaultPageSize={20}
-        total={200}
-        showQuickJumper
-      />
+      <div className="p">
+        <P
+          className={styles.pagination}
+          hideOnSinglePage
+          onChange={onChange}
+          defaultCurrent={1}
+          defaultPageSize={20}
+          total={200}
+          showQuickJumper
+        /> 
+      </div>
   )
 }
 
