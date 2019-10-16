@@ -1,34 +1,15 @@
 import 'braft-editor/dist/index.css'
 import React from 'react'
 import BraftEditor from 'braft-editor'
-import { Form, Input, Button, Select, Table } from 'antd';
+import { Form, Input, Button, Select, Table, Row, Col } from 'antd';
 import styles from './index.css'
 import MenuList from '../../../../assets/contextMenuDown'
 const formItemLayout = {
-  labelCol: { span: 8 },
+  labelCol: { span: 4 },
   wrapperCol: { span: 16 },
 };
 
 const { Option } = Select;
-const tableColumns = [{
-  title: '当前附件',
-  dataIndex: 'nowAddition',
-  width: 150
-},{
-  title: '上传附件',
-  dataIndex: 'addAddition'
-}];
-
-const dataSource = [{
-  key: 1,
-  nowAddition: 'file',
-  addAddition: 'todo'
-},{
-  key: 2,
-  nowAddition: 'file',
-  addAddition: 'todo'
-}];
-
 
 class FormDemo extends React.Component {
 
@@ -45,7 +26,7 @@ class FormDemo extends React.Component {
 
   handleSubmit = (event) => {
 
-    event.preventDefault()
+    event.preventDefault();
 
     this.props.form.validateFields((error, values) => {
       if (!error) {
@@ -66,11 +47,10 @@ class FormDemo extends React.Component {
   render () {
 
     const { getFieldDecorator } = this.props.form
-    const controls = ['bold', 'italic', 'underline', 'text-color', 'separator', 'link', 'separator', 'media' ]
+    const controls = ['bold', 'italic', 'underline', 'text-color', 'separator', 'link', 'separator', 'media' ];
 
     return (
-      <div className={styles.wrapper}>
-        <div className={styles['demo-container']}>
+      <div className={styles['demo-container']}>
           <Form onSubmit={this.handleSubmit}>
             <Form.Item {...formItemLayout} label="文章标题">
               {getFieldDecorator('title', {
@@ -83,7 +63,7 @@ class FormDemo extends React.Component {
               )}
             </Form.Item>
             <Form.Item {...formItemLayout} label="发布部门">
-              {getFieldDecorator('title', {
+              {getFieldDecorator('department', {
                 rules: [{
                   required: true,
                   message: '请填写发布部门',
@@ -145,20 +125,20 @@ class FormDemo extends React.Component {
                 />
               )}
             </Form.Item>
-            <Form.Item {...formItemLayout}>
-                <Button size="large" type="primary" htmlType="submit">保存草稿</Button>
-                <Button size="large" type="primary" htmlType="submit">预览发布</Button>
-                <Button size="large" type="primary" htmlType="submit">直接发布</Button>
+            <Form.Item {...formItemLayout} className={styles.bottomButton}>
+              <Row>
+                <Col span={4} offset={4}>
+                  <Button size="large" type="primary" htmlType="submit">保存草稿</Button>
+                </Col>
+                <Col span={4} offset={4}>
+                  <Button size="large" type="primary" htmlType="submit">预览发布</Button>
+                </Col>
+                <Col span={4} offset={4}>
+                  <Button size="large" type="primary" htmlType="submit">直接发布</Button>
+                </Col>
+              </Row>
             </Form.Item>
           </Form>
-        </div>
-        <div style={{width: '362px'}}>
-          <Table
-            columns={tableColumns}
-            dataSource={dataSource}
-            title={()=>'附件管理'}
-          />
-        </div>
       </div>
     )
   }

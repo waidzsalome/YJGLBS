@@ -3,17 +3,45 @@ import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import { connect } from 'dva';
 import styles from './index.less';
 import Oval from '../../assets/Oval.png';
+import axios from 'axios'
 
+@connect(
+  ({login, loading}) => ({
+    ...login,
+    loading: loading.global,
+  })
+)
 class NormalLoginForm extends React.Component {
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
-        const { dispatch } = this.props;
-        dispatch({
-          type: 'login/login',
-          payload: { ...values }
+        // console.log('Received values of form: ', values);
+        // const { dispatch } = this.props;
+        // dispatch({
+        //   type: 'login/login',
+        //   payload: { ...values }
+        // })
+        const tmp = values;
+        tmp.keep_alive = Number(values.keep_alive)
+        console.log(tmp);
+        axios({
+          method:'post',
+          url:'http://yjxt.elatis.cn/users/login',
+          data: {
+            ...tmp
+          },
+          headers: {
+            'content-type': 'application/json'
+          }
+        }).then(data =>{
+          console.log(data);
+          if (data.status === 200 ) {
+            sessionStorage.setItem('token', data.data.data.token);
+            window.location.href = '/manage'
+          }
+        }).catch(err => {
+          console.log(err)
         })
       }
     });
@@ -28,7 +56,7 @@ class NormalLoginForm extends React.Component {
         </div>
         <Form onSubmit={this.handleSubmit} className="login-form">
           <Form.Item>
-            {getFieldDecorator('username', {
+            {getFieldDecorator('number', {
               rules: [{ required: true, message: 'Please input your username!' }],
             })(
               <Input
@@ -49,17 +77,17 @@ class NormalLoginForm extends React.Component {
             )}
           </Form.Item>
           <Form.Item>
-            {getFieldDecorator('remember', {
+            {getFieldDecorator('keep_alive', {
               valuePropName: 'checked',
               initialValue: true,
-            })(<Checkbox>Remember me</Checkbox>)}
+            })(<Checkbox>记住密码</Checkbox>)}
             <a className="login-form-forgot" href="">
-              Forgot password
+              忘记密码
             </a>
             <Button type="primary" htmlType="submit" className="login-form-button">
               Log in
             </Button>
-            Or <a href="">register now!</a>
+            Or <a href="">现在登录!</a>
           </Form.Item>
         </Form>
       </div>
