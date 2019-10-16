@@ -1,9 +1,10 @@
 import React from "react";
 import styles from "./index.css";
 import Link from "umi/link";
-import { Table,Input, Button, Popover } from 'antd';
+import { Table,Input, Button, Popover, message } from 'antd';
 import { useState, useEffect } from "react";
 import fileData from "../../../../assets/fileData";
+import axios from "axios";
 const { Search } = Input;
 const getFileContent = (content)=>{
   return(
@@ -13,26 +14,42 @@ const getFileContent = (content)=>{
   )
 }
 const del = (id)=> {
+  axios({
+    method:"GET",
+    url:`http://yjxt.elatis.cn/file/delete/${id}`,
+    headers: {
+      token:"adminToken"
+    }
+  }).then((res)=>{
+  if(res.data.code === 0){
+    message.success("删除成功")
+  }
+  })
   console.log("永久删除",id);
   //在这里写永久删除按钮的函数
 }
 const columns = [
   {
+    title:"id",
+    dataIndex:"id",
+    key:"id"
+  },
+  {
     title: '文件',
-    dataIndex: 'file',
-    key: 'file',
-    render: file =>(
+    dataIndex: 'name',
+    key: 'name',
+    render: (name,id) =>(
       <div className = {styles.handle }>
-        <img src = { file.picUrl}  width = "126px" height = "126px" alt = ""/>
+        <img src = { `http://yjxt.elatis.cn/${id.uri}`}  width = "126px" height = "126px" alt = ""/>
         <div>
-          <p>{  file.name } </p>
-          <p> { file.type } </p>
+          <p>{  name } </p>
+          <p> { `文件类型: ${id.type}` } </p>
           <div> 
-          <Button size = "small">编辑</Button>  
-          <Button size = "small" onClick = {()=>{ del( file.id ) }} >永久删除</Button>  
-          <Popover content={getFileContent(file.content)}>
+          {/* <Button size = "small">编辑</Button>   */}
+          <Button size = "small" onClick = {()=>{ del(id.id) }} >永久删除</Button>  
+          {/* <Popover content={getFileContent(file.content)}>
             <Button size = "small">查看说明</Button>  
-          </Popover>
+          </Popover> */}
    
           </div>
         </div>
@@ -47,8 +64,8 @@ const columns = [
   },
   {
     title: '日期',
-    key: 'time',
-    dataIndex: 'time',
+    key: 'created_at',
+    dataIndex: 'created_at',
   },
 ];
 
@@ -67,20 +84,22 @@ const rowSelection = {
 };
 
 
-const App = ()=> {
-    return(
-        <div>
-            <Table columns={columns} dataSource={fileData}  rowSelection={rowSelection}/>
-        </div>
-    )
-}
+// const App = ()=> {
+//     return(
+//         <div>
+//             <Table columns={columns} dataSource={fileData}  rowSelection={rowSelection}/>
+//         </div>
+//     )
+// }
 const FileHeader = ()=> {
   const [ isCreateShow,setisCreateShow ] = useState(false);
     return(
         <div className = { styles.FileHeader }>
-            <span className = { styles.name }>
-                文件管理
-            </span>
+            <div className = { styles.title }>
+               <span>
+                 消息通知
+               </span>
+            </div>
             <div className = { styles.create } onClick = {()=>{setisCreateShow(true)}} onBlur = {()=>{setisCreateShow(false)}}>
                 <Button >新建文件</Button>
                 <div >
@@ -108,14 +127,64 @@ const FileHeader = ()=> {
 
 
 const File = ()=> {
+  const [data,setdata] = useState([]);
+  const [ selectedId,setselectedId ] = useState([]);
+  useEffect(()=> {
+    axios({
+      method:"GET",
+      url:"http://yjxt.elatis.cn/file/all",
+      headers:{
+        token:"adminToken"
+      }
+    }).then((res)=> {
+      console.log(res.data.code);
+
+    if(res.data.code === 0) {
+      setdata(res.data.data.page.data);
+    }
+    })
+
+  },[])
+
+
+  const rowSelection = {
+    onChange: (selectedRowKeys, selectedRows) => {
+      const selectedId = selectedRows.map((item)=>{
+        return item.id;
+      })
+      setselectedId(selectedId);
+      console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedId);
+      //这里获取了所以被选中的选项的id
+    },
+    getCheckboxProps: record => ({
+      disabled: record.name === 'Disabled User', // Column configuration not to be checked
+      name: record.name,
+    }),
+  };
+ const  delSelected = (selectedId)=> {
+  selectedId.map((item)=> {
+    del(item);
+  })
+  }
+
+
+  console.log(data);
+  const App = ()=> {
+      return(
+          <div>
+              <Table columns={columns} dataSource={data}  rowSelection={rowSelection}/>
+          </div>
+      )
+  }
     return (
         <div>
             <FileHeader />
             <div className = { styles.subbar }>
-              <Button >批量删除</Button>
+              <Button  onClick = {()=>{delSelected(selectedId)}}>批量删除</Button>
               <span>X个项目</span>
             </div>
-            <App />
+            {/* <App /> */}
+            <Table columns={columns} dataSource={data}  rowSelection={rowSelection}/>
         </div>
     )
 }

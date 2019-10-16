@@ -136,3 +136,160 @@
     //         }
     //     ]
     // }
+
+
+    // {
+    //     "name":"col",
+    //     "value":[
+    //         {
+    //             "key":"1",
+    //             "title": "首页",
+    //             "sec":[
+    //                 {
+    //                     "key":"1",
+        
+    //                     "title":"二级1"
+    //                 },
+    //                 {
+    //                     "key":"2",
+        
+    //                     "title":"二级1"
+    //                 }
+    //             ]
+    //         },
+    //         {
+    //             "key":"2",
+    //             "title": "巴拉巴拉",
+    //             "sec":[
+    //                 {
+    //                     "key":"1",
+    //                     "title":"二级1"
+    //                 },
+    //                 {
+    //                     "key":"2",
+    //                     "title":"二级1"
+    //                 }
+    //             ]
+    //         },
+    //         {
+    //             "key":"3",
+    //             "title": "balabla",
+    //             "sec":[
+    //                 {
+    //                     "key":"1",
+    //                     "title":"二级1"
+    //                 },
+    //                 {
+    //                     "key":"2",
+    //                     "title":"二级1"
+    //                 }
+    //             ]
+    //         },
+    //             {
+    //             "key":"4",
+    //             "title": "balabla",
+    //             "sec":[
+    //                 {
+    //                     "key":"1",
+    //                     "title":"二级1"
+    //                 },
+    //                 {
+    //                     "key":"2",
+    //                     "title":"二级1"
+    //                 }
+    //             ]
+    //         },
+    //             {
+    //             "key":"5",
+    //             "title": "balabla",
+    //             "sec":[
+    //                 {
+    //                     "key":"1",
+    //                     "title":"二级1"
+    //                 },
+    //                 {
+    //                     "key":"2",
+    //                     "title":"二级1"
+    //                 }
+    //             ]
+    //         },
+    //             {
+    //             "key":"6",
+    //             "title": "balabla",
+    //             "sec":[
+    //                 {
+    //                     "key":"1",
+    //                     "title":"二级1"
+    //                 },
+    //                 {
+    //                     "key":"2",
+    //                     "title":"二级1"
+    //                 }
+    //             ]
+    //         }
+    //     ]
+    // //     }
+
+    // {
+    //     "name":"safe",
+    //     "value":[
+    //         {
+    //             "id":1,
+    //             "title":"公告公告共大撒大撒11",
+    //             "href":"/"
+    //         },
+    //                 {
+    //             "id":2,
+    //             "title":"公告公告共大撒大撒22",
+    //             "href":"/"
+    //         },
+    //                 {
+    //             "id":3,
+    //             "title":"公告公告共大撒大撒33",
+    //             "href":"/"
+    //         },
+    //                 {
+    //             "id":4,
+    //             "title":"公告公告共大撒大444撒",
+    //             "href":"/"
+    //         }
+    //         ]
+        
+    // }
+
+    // {
+    //     "name":"topicCol",
+    //     "value": [
+    //         {
+    //             "picUrl": "http://yjxt.elatis.cn/uploads/images/capture_20190724140948213-33.bmp",
+    //             "url": "/message",
+    //             "id":1,
+    //             "content":"aaaaaaaa"
+    //         },
+    //         {
+    //             "picUrl": "http://yjxt.elatis.cn/uploads/images/capture_20190724140948213-33.bmp",
+    //             "url": "/message",
+    //             "id":2,
+    //              "content":"aaaaaaaa"
+    //         },
+    //         {
+    //             "picUrl": "http://yjxt.elatis.cn/uploads/images/capture_20190724140948213-33.bmp",
+    //             "url": "/message",
+    //             "id":3,
+    //              "content":"aaaaaaaa"
+    //         },
+    //         {
+    //             "picUrl": "http://yjxt.elatis.cn/uploads/images/capture_20190724140948213-33.bmp",
+    //             "url": "/message",
+    //             "id":4,
+    //              "content":"aaaaaaaa"
+    //         },
+    //         {
+    //             "picUrl": "http://yjxt.elatis.cn/uploads/images/capture_20190724140948213-33.bmp",
+    //             "url": "/message",
+    //             "id":5,
+    //              "content":"aaaaaaaa"
+    //         }
+    //     ]
+        
+    // }

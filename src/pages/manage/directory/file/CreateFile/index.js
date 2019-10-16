@@ -24,7 +24,7 @@ const props = {
   multiple: true,
   listType: 'picture',
   defaultFileList: [...fileList],
-  action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
+  action: 'http://yjxt.elatis.cn/file/upload',
   onChange(info) {
     const { status } = info.file;
     if (status !== 'uploading') {
