@@ -19,3 +19,7 @@
         align-items: center;
         /* border-bottom:  1px solid #979797; */
 }
+.alter {
+    display: flex;
+    justify-content: center;
+}

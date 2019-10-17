@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { Form, Icon, Input, Button, Checkbox, message } from 'antd';
 import { connect } from 'dva';
 import styles from './index.less';
 import Oval from '../../assets/Oval.png';
@@ -36,9 +36,14 @@ class NormalLoginForm extends React.Component {
           }
         }).then(data =>{
           console.log(data);
-          if (data.status === 200 ) {
+          if (data.data.code === 0 ) {
+
             sessionStorage.setItem('token', data.data.data.token);
+            message.success("登录成功");
             window.location.href = '/manage'
+          }
+          else {
+            message.error(data.data.message);
           }
         }).catch(err => {
           console.log(err)
@@ -57,22 +62,22 @@ class NormalLoginForm extends React.Component {
         <Form onSubmit={this.handleSubmit} className="login-form">
           <Form.Item>
             {getFieldDecorator('number', {
-              rules: [{ required: true, message: 'Please input your username!' }],
+              rules: [{ required: true, message: '请输入用户名' }],
             })(
               <Input
                 prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                placeholder="Username"
+                placeholder="请输入用户名"
               />,
             )}
           </Form.Item>
           <Form.Item>
             {getFieldDecorator('password', {
-              rules: [{ required: true, message: 'Please input your Password!' }],
+              rules: [{ required: true, message: '请输入密码' }],
             })(
               <Input
                 prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
                 type="password"
-                placeholder="Password"
+                placeholder="请输入密码"
               />,
             )}
           </Form.Item>

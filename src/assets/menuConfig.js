@@ -6,22 +6,22 @@ const menuList = [
   {
     title: '栏目管理',
     key: '/manage/column',
-    children: [
-      {
-        title: '新闻中心',
-        key: '/manage/column/news',
-      },
-    ]
+  //   children: [
+  //     {
+  //       title: '新闻中心',
+  //       key: '/manage/column/news',
+  //     },
+  //   ]
   },
   {
     title: '内容管理',
-    key: '/manage/context',
-    children: [
-      {
-        title: '富文本编辑器',
-        key: '/manage/context/create'
-      }
-    ]
+    key: '/manage/context/create',
+    // children: [
+    //   {
+    //     title: '富文本编辑器',
+    //     key: '/manage/context/create'
+    //   }
+    // ]
   },
   {
     title: '区块管理',

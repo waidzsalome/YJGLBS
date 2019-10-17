@@ -104,7 +104,7 @@ export default function ColManage() {
         method: "POST",
         url: "http://yjxt.elatis.cn/options/update",
         headers: {
-          "token": "adminToken",
+          "token": sessionStorage.getItem("token"),
           "Content-Type": "application/json"
         },
         data: _data

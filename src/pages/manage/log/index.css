@@ -5,6 +5,7 @@
     width:100%;
     display: flex;
     justify-content: flex-start;
+    margin-bottom: 10px;
 }
 .title>span {
         margin-top: 22px;

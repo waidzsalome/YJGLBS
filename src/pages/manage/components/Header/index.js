@@ -11,13 +11,14 @@ const logOut = ()=> {
     method:"GET",
     url:"http://yjxt.elatis.cn/users/logout",
     headers: {
-      "token": "adminToken",
+      "token": sessionStorage.getItem("token"),
       "Content-Type": "application/x-www-form-urlencoded"
     }
   }).then((res)=> {
     if(res.data.code === 0) {
       message.success("登出成功");
-
+      sessionStorage.clear();
+      window.location.href = "/login"
     }
   } )
 }

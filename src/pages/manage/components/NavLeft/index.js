@@ -30,7 +30,7 @@ function NavLeft() {
   }, []);
   return (
     <div>
-      <Link to="/home">
+      <Link to="/">
         <div className={styles.logo}>
           <img src="" alt=""/>
           <h1>秦皇岛市应急管理局后台</h1>
