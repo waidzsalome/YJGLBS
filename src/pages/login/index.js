@@ -38,7 +38,7 @@ class NormalLoginForm extends React.Component {
           console.log(data);
           if (data.data.code === 0 ) {
 
-            sessionStorage.setItem('token', data.data.data.token);
+            localStorage.setItem('token', data.data.data.token);
             message.success("登录成功");
             window.location.href = '/manage'
           }
