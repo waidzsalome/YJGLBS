@@ -1,6 +1,7 @@
+/* eslint-disable react/jsx-no-target-blank */
 import React, { useEffect, useState, Fragment } from 'react';
 import styles from './index.css';
-import { Table, Button, Input, Switch, message, Icon, Upload } from 'antd';
+import { Table, Button, Input, Switch, message, Upload } from 'antd';
 import * as blockData from '../../../assets/blockData';
 import * as blockCol from '../../../assets/blockCol';
 import axios from 'axios';
@@ -33,7 +34,7 @@ const HeaderScroll = () => {
           onChange={e => {
             const newData = data.map(item => {
               console.log(id.id, 'id');
-              if (item.id == id.id) {
+              if (item.id === id.id) {
                 return {
                   ...item,
                   title: e.target.value,
@@ -59,7 +60,7 @@ const HeaderScroll = () => {
           onChange={e => {
             const newData = data.map(item => {
               console.log(id.id, 'id');
-              if (item.id == id.id) {
+              if (item.id === id.id) {
                 return {
                   ...item,
                   href: e.target.value,
@@ -87,7 +88,7 @@ const HeaderScroll = () => {
           onChange={checked => {
             const newData = data.map(item => {
               console.log(id.id, 'id');
-              if (item.id == id.id) {
+              if (item.id === id.id) {
                 return {
                   ...item,
                   isSHow: checked,
@@ -115,6 +116,7 @@ const HeaderScroll = () => {
               if (item.id === id) {
                 newData.splice(index, 1);
               }
+              return null;
             });
             console.log('删除', newData);
           }}
@@ -187,7 +189,7 @@ const Carousel = () => {
       console.log(data, 'data');
       const newData = data.map(item => {
         console.log(id.id, 'id');
-        if (item.id == id.id) {
+        if (item.id === id.id) {
           console.log('找到id了');
           return {
             ...item,
@@ -249,7 +251,7 @@ const Carousel = () => {
           onChange={e => {
             const newData = data.map(item => {
               console.log(id.id, 'id');
-              if (item.id == id.id) {
+              if (item.id === id.id) {
                 return {
                   ...item,
                   title: e.target.value,
@@ -337,6 +339,7 @@ const Carousel = () => {
               if (item.id === id) {
                 newData.splice(index, 1);
               }
+              return null;
             });
             console.log('删除', newData);
           }}
@@ -438,7 +441,7 @@ const HomeTopic = () => {
           onChange={e => {
             const newData = data.map(item => {
               console.log(id.id, 'id');
-              if (item.id == id.id) {
+              if (item.id === id.id) {
                 return {
                   ...item,
                   content: e.target.value,
@@ -470,7 +473,7 @@ const HomeTopic = () => {
           onChange={e => {
             const newData = data.map(item => {
               console.log(id.id, 'id');
-              if (item.id == id.id) {
+              if (item.id === id.id) {
                 return {
                   ...item,
                   url: e.target.value,
@@ -505,7 +508,7 @@ const HomeTopic = () => {
       console.log(data, 'data');
       const newData = data.map(item => {
         console.log(id.id, 'id');
-        if (item.id == id.id) {
+        if (item.id === id.id) {
           console.log('找到id了');
           return {
             ...item,
@@ -619,7 +622,7 @@ const Background = () => {
     },
   };
   const onChange = (info, id) => {
-    if (info.file.status !== 'uploading') {
+    if (info.file.status !== 'uploading') { 
       console.log(info.file, info.fileList);
     }
     if (info.file.status === 'done') {
@@ -628,7 +631,7 @@ const Background = () => {
       console.log(data, 'data');
       const newData = data.map(item => {
         console.log(id.id, 'id');
-        if (item.id == id.id) {
+        if (item.id === id.id) {
           console.log('找到id了');
           return {
             ...item,
@@ -715,7 +718,7 @@ const Background = () => {
 };
 const block = () => {
   return (
-    <div>
+    <div className = {styles.block}>
       <HeaderScroll />
       <Carousel />
       <HomeTopic />

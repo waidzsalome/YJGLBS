@@ -43,7 +43,7 @@ const columns = [
 
 
 
-const Context = ()=> {
+const Context = ()=> { 
     return(
         <div>
              <Search placeholder="请输入搜索内容" onSearch={value => console.log(value)} enterButton className = {styles.search} />

@@ -1,7 +1,7 @@
 import 'braft-editor/dist/index.css'
 import React from 'react'
 import BraftEditor from 'braft-editor'
-import { Form, Input, Button, Select, Table, Row, Col } from 'antd';
+import { Form, Input, Button, Select, Row, Col } from 'antd';
 import styles from './index.css'
 import MenuList from '../../../../assets/contextMenuDown'
 const formItemLayout = {
