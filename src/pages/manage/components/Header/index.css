@@ -6,9 +6,9 @@
   justify-content: flex-end;
   align-items: center;
 }
-/* .header>span,a {
+.header>span,a {
   margin-right: 15px;
-} */
+}
 .toHome {
   display: inline-block;
   width: 16px;

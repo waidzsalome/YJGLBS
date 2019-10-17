@@ -29,17 +29,17 @@ const menuList = [
   },
   {
     title: '文件管理',
-    key: '/manage/directory',
-    children: [
-      {
-        title: '图片管理',
-        key: '/manage/directory/image',
-      },
-      {
-        title: '文档管理',
-        key: '/manage/directory/file'
-      }
-    ]
+    key: '/manage/directory/file',
+    // children: [
+    //   {
+    //     title: '图片管理',
+    //     key: '/manage/directory/file',
+    //   },
+    //   {
+    //     title: '文档管理',
+    //     key: '/manage/directory/file'
+    //   }
+    // ]
   },
   {
     title: '消息通知',
