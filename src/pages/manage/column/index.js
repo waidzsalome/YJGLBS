@@ -55,18 +55,21 @@ export default function ColManage() {
       setSecCols(_secCol);
     }
   }, [col, colsData, data]);
+
   useEffect(() => {
     // 后端数据渲染进data里
     axios.get("http://yjxt.elatis.cn/options/name/column").then(res => {
       if(res.data.code === 0) {
         let _weight = [];
-        setColsData(res.data.data);
-        setCols(res.data.data.map(item => {
+        let  _data = JSON.parse(JSON.stringify(res.data.data));
+        setColsData(_data);
+        // 这里是导致bug的原因，map数组中是引用类型，会改变原数组
+        setCols(_data.map(item => {
           _weight.push(true);
           setWeightIsNum(_weight);
-          return utils.sliceObj(item, ["key", "title", "state", "weight", "link"]);
+          return item;
         }));
-        setCol((res.data.data)[0].title);
+        setCol((_data)[0].title);
       }
     }).catch(err => {
       message.error(err);
@@ -77,16 +80,14 @@ export default function ColManage() {
     setEdit([false, false, false]);
 
   }, []);
-  useEffect(() => {
-    secCols.length !== 0 && setSecCol(secCols[0].col);
-    setSecColKey(dataSource.secCols[0].key);
 
-  }, [secCols, data]);
   useEffect(() => {
     if(!saveClick) return;
     if(colsData.length !== 0) {
-      colsData.map((item)=> {
-        let _item = {...item, title: item.newCol}
+      console.log(secCols)
+      colsData.map((item, index)=> {
+        console.log(item)
+        let _item = {...item, title: item.newCol, }
         delete item.newCol;
         return _item;
       });
@@ -97,9 +98,8 @@ export default function ColManage() {
         name: "column",
         value: {
           ...colsData,
-          title: colsData.newCol
         }
-      })
+      });
       axios({
         method: "POST",
         url: "http://yjxt.elatis.cn/options/update",
@@ -112,15 +112,21 @@ export default function ColManage() {
         if(res.data.code === 0) {
           setLoading(false);
           message.success("保存成功");
-          window.location.reload();
           setSaveClick(false);
+          window.location.reload();
         }
       }).catch(err => {
         message.error(err);
       });
     }
-  }, [colsData, saveClick]);
+  }, [colsData, saveClick, secCols]);
 
+  useEffect(() => {
+    secCols.length && setSecCol(secCols[0].title);
+    setSecColKey(dataSource.secCols[0].key);
+
+  }, [secCols, data]);
+  
   const columns = [
     {
       title: "栏目",
