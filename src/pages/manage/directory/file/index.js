@@ -18,7 +18,7 @@ const del = (id)=> {
     method:"GET",
     url:`http://yjxt.elatis.cn/file/delete/${id}`,
     headers: {
-      token:"adminToken"
+      token:sessionStorage.getItem("token")
     }
   }).then((res)=>{
   if(res.data.code === 0){
@@ -100,8 +100,8 @@ const FileHeader = ()=> {
                  消息通知
                </span>
             </div>
-            <div className = { styles.create } onClick = {()=>{setisCreateShow(true)}} onBlur = {()=>{setisCreateShow(false)}}>
-                <Button >新建文件</Button>
+            {/* <div className = { styles.create } onClick = {()=>{setisCreateShow(true)}} onBlur = {()=>{setisCreateShow(false)}}>
+                <Button className = {styles.button}>新建文件</Button>
                 <div >
                     <ul className = {isCreateShow?styles.createList:styles.hide}>
                         <li>
@@ -117,8 +117,8 @@ const FileHeader = ()=> {
 
                 </div>
 
-            </div>
-            <Search placeholder="请输入搜索内容" onSearch={value => console.log(value)} enterButton className = {styles.search} />
+            </div> */}
+            
         </div>
     )
 }
@@ -134,7 +134,7 @@ const File = ()=> {
       method:"GET",
       url:"http://yjxt.elatis.cn/file/all",
       headers:{
-        token:"adminToken"
+        token:sessionStorage.getItem("token")
       }
     }).then((res)=> {
       console.log(res.data.code);
@@ -179,10 +179,10 @@ const File = ()=> {
     return (
         <div>
             <FileHeader />
-            <div className = { styles.subbar }>
-              <Button  onClick = {()=>{delSelected(selectedId)}}>批量删除</Button>
-              <span>X个项目</span>
-            </div>
+            <div className = {styles.buttonSbar}>
+              <Button  onClick = {()=>{delSelected(selectedId)}} className = {styles.button}>批量删除</Button>
+              </div>
+              
             {/* <App /> */}
             <Table columns={columns} dataSource={data}  rowSelection={rowSelection}/>
         </div>

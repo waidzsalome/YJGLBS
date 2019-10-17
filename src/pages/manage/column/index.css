@@ -76,5 +76,5 @@
   flex: 1 1 auto;
 }
 :global(.ant-row) {
-  min-width: 840px;
+  /* min-width: 300px; */
 }

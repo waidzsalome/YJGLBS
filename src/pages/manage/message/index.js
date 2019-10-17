@@ -100,7 +100,7 @@ const Message = ()=> {
         method: "POST",
         url: "http://yjxt.elatis.cn/messages/alterReadStatus",
         headers:{
-          "token":"adminToken",
+          "token":sessionStorage.getItem("token"),
           "Content-Type": "application/x-www-form-urlencoded"
         },
         data:data
@@ -114,6 +114,7 @@ const Message = ()=> {
           }
         }
       )
+      return null;
     })
   }
   const markAsUnRead = ()=> {
@@ -127,7 +128,7 @@ const Message = ()=> {
         method: "POST",
         url: "http://yjxt.elatis.cn/messages/alterReadStatus",
         headers:{
-          "token":"adminToken",
+          "token":sessionStorage.getItem("token"),
           "Content-Type": "application/x-www-form-urlencoded"
         },
         data:data
@@ -142,6 +143,7 @@ const Message = ()=> {
           }
         }
       )
+      return null;
     })
   }
 
@@ -150,7 +152,7 @@ const Message = ()=> {
       method:"GET",
       url:"http://yjxt.elatis.cn/messages/getPageInfo?limit=10&offset=0",
       headers: {
-        token:"adminToken"
+        token:sessionStorage.getItem("token")
       }
     }).then(
       (res)=> {
@@ -174,15 +176,15 @@ const Message = ()=> {
                  消息通知
                </span>
             </div>
-            <div>
-              <Button  onClick = {()=>{markAsRead()}} >
+            <div className = {styles.buttonSbar}>
+              <Button  onClick = {()=>{markAsRead()}} className = {styles.button} >
                 标记为已读
               </Button>
-              <Button onClick = {()=>{markAsUnRead()}}>
+              <Button onClick = {()=>{markAsUnRead()}} className = {styles.button}>
                 标记为未读
               </Button>
             </div>
-            <Table columns={columns} dataSource={messageData}  rowSelection={rowSelection}/>
+            <Table columns={columns} dataSource={messageData}  rowSelection={rowSelection} pagination = {false}/>
         </div>
     )
 }

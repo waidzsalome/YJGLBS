@@ -45,7 +45,7 @@ const Log = ()=> {
       method:"GET",
       url:"http://yjxt.elatis.cn/logs",
       headers:{
-        "token": "adminToken",
+        "token": sessionStorage.getItem("token"),
         "Content-Type":"application/x-www-form-urlencoded"
       },
       data:data
@@ -70,7 +70,7 @@ const Log = ()=> {
                  操作日志
                </span>
             </div>
-            <Table columns={columns} dataSource={logdata} style = {{width:"80%",margin: "0 auto"}} Pagination = {false} />
+            <Table columns={columns} dataSource={logdata} style = {{width:"80%",margin: "0 auto"}} pagination = {false} />
             {/* <Pagination defaultCurrent={1} total={50} pageSizeOptions = {["5"]} /> */}
         </div>
     )

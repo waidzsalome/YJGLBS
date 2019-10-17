@@ -2,6 +2,12 @@ import React from 'react';
 import styles from './index.css';
 
 export default function() {
+  if(sessionStorage.getItem("token")){
+    window.location.href = "/manage";
+  }
+  else {
+    window.location.href = "/login";
+  }
   return (
     <div className={styles.normal}>
       <div className={styles.welcome} />

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useReducer } from "react";
 import { Input, Button, Table, Select, message } from "antd";
 import Pagination from "../components/Pagination";
 import styles from "./index.css";
+import axios from 'axios'
 
 const authKeys = {
   "一级权限": 3,
@@ -10,18 +11,18 @@ const authKeys = {
 }
 //暂时key=name
 const initialState = {
-  num: "",
-  depart: "",
-  name: "",
-  article: 0,
-  psw: "",
-  auth: "",
-  key: ""
+  "id": 1,
+  "number": "11111111",
+  "name": "admin",
+  "section": "123",
+  "roles_id": "一级权限",
+  "password": "e10adc3949ba59abbe56e057f20f883e",
+  "post_num": 1
 };
 const initialUsersData = [];
 
 const usersRuducer = (state, action) => {
-  console.log(state)
+  console.log('state',state)
   switch(action.type) {
     case "initUsers":
       return [
@@ -38,7 +39,7 @@ const usersRuducer = (state, action) => {
   }
 };
 const newUserReducer = (state, action) =>　{
-  console.log(state)
+  console.log('state2',state)
   switch(action.type) {
     case "changeNewUser":
       return {
@@ -60,66 +61,56 @@ export default function AuthManage() {
   const [LoginUserAuth] = useState("一级权限");
   // 用户权限数据统计
   const [usersAuthData, setUsersAuth] = useState([]);
+
+  // useEffect(() => {
+  //   setUsersAuth([
+  //     {
+  //       tag: "全部",
+  //       num: 3
+  //     },
+  //     {
+  //       tag: "一级权限",
+  //       num: 1
+  //     },
+  //     {
+  //       tag: "二级权限",
+  //       num: 1
+  //     },
+  //     {
+  //       tag: "三级权限",
+  //       num: 1
+  //     }
+  //   ]);
+  // })
   const [loading, setLoading] = useState(false);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [state, setState] = useState("manage");
 
   const [myState, changeNewUser] = useReducer(newUserReducer, initialState);
-  const [usersData, changeUsers] = useReducer(usersRuducer, initialUsersData);
 
+  const [usersData, changeUsers] = useReducer(usersRuducer, initialUsersData);
   useEffect(() => {
     // 后端数据
-    setUsersAuth([
-      {
-        tag: "全部",
-        num: 3
-      },
-      {
-        tag: "一级权限",
-        num: 1
-      },
-      {
-        tag: "二级权限",
-        num: 1
-      },
-      {
-        tag: "三级权限",
-        num: 1
+    console.log('account');
+    axios({
+      method: 'get',
+      url:'http://yjxt.elatis.cn/users/getByRole',
+      headers: {
+        'content-type': 'application/json',
+        'token': sessionStorage.getItem('token')
       }
-    ]);
-    changeUsers({
-      type: "initUsers",
-      payload: [
-        {
-          num: "20190000",
-          depart: "党委",
-          name: "sjy01",
-          article: 0,
-          psw: "1001231234",
-          auth: "一级权限", 
-          key: "sjy01"
-        },
-        {
-          num: "20190000",
-          depart: "党委",
-          name: "sjy02",
-          article: 1,
-          psw: "234535345",
-          auth: "二级权限",
-          key: "sjy02",
-        },
-        {
-          num: "20190000",
-          depart: "党委",
-          name: "sjy03",
-          article: 2,
-          psw: "56563452",
-          auth: "三级权限",
-          key: "sjy03",
-        },
-      ]
-    });
+    }).then(res=>{
+      changeUsers({
+        type: 'initUsers',
+        payload: res.data.data
+      });
+      console.log('usersData',usersData)
+    }).catch((err)=>{
+      console.log(err)
+    })
   }, []);
+
+
 
   const handleInputChange = (e, id) => {
 
@@ -146,7 +137,7 @@ export default function AuthManage() {
   const { Option } = Select;
   const getDefaultValue = (index) => {
     if(state === "manage") {
-      return usersData[index].auth;
+      return usersData[index].roles_id;
     } else if(state === "add" && LoginUserAuth === "一级权限") {
       return "一级权限";
     } 
@@ -171,40 +162,40 @@ export default function AuthManage() {
         <Option value="三级权限" className={styles.select} ><span className={styles.optionText}>三级权限</span></Option>
       </Select>
       :
-      <span>{state === "manage" ? usersData[index].auth : "三级权限"}</span>
+      <span>{state === "manage" ? usersData[index].roles_id : "三级权限"}</span>
       
       return Auth;
-  }
+  };
   const renderPsw = (text, record, index) => {
 
     const Psw = state === "manage" ?
     <div className={styles.renderPsw}>
       <Input 
-        type={authKeys[LoginUserAuth] >= authKeys[usersData[index].auth] ? "input" : "password"} 
-        disabled={authKeys[LoginUserAuth] < authKeys[usersData[index].auth]}
+        type={authKeys[LoginUserAuth] >= authKeys[usersData[index].roles_id] ? "input" : "password"}
+        disabled={authKeys[LoginUserAuth] < authKeys[usersData[index].roles_id]}
         style={{width: "200px"}} 
-        defaultValue={record.psw}
+        defaultValue={record.password}
       />
       {
-        authKeys[LoginUserAuth] >= authKeys[usersData[index].auth] &&
+        authKeys[LoginUserAuth] >= authKeys[usersData[index].roles_id] &&
         <Button
         >
         恢复默认
       </Button>
       }
     </div>:
-    <Input type="password" style={{width: "200px"}} onChange={(e) => handleInputChange(e, "psw")} defaultValue="123456!"/>
+    <Input type="password" style={{width: "200px"}} onChange={(e) => handleInputChange(e, "password")} defaultValue="123456!"/>
 
     return Psw;
-  }
+  };
   
   
   //表格数据
   const columns = [
     {
       title: "编号",
-      dataIndex: "num",
-      key: "num",
+      dataIndex: "id",
+      key: "id",
       width: "200px",
       render: (text) => {
         const Num = state === "add" ?
@@ -219,8 +210,8 @@ export default function AuthManage() {
     },
     {
       title: "部门",
-      dataIndex: "depart",
-      key: "depart",
+      dataIndex: "section",
+      key: "section",
       width: "200px",
       render: (text) => {
         const Depart = state === "add" ?
@@ -249,21 +240,21 @@ export default function AuthManage() {
     },
     {
       title: "权限级别",
-      dataIndex: "pLevel",
-      key: "pLevel",
+      dataIndex: "roles_id",
+      key: "roles_id",
       width: "200px",
       render: renderSelect,
     },
     {
       title: "文章",
-      dataIndex: "article",
-      key: "article",
+      dataIndex: "post_num",
+      key: "post_num",
       width: "200px"
     },
     {
       title: "密码",
-      dataIndex: "psw",
-      key: "psw",
+      dataIndex: "password",
+      key: "password",
       render: renderPsw,
     }
   ];
@@ -276,7 +267,7 @@ export default function AuthManage() {
       setSelectedRowKeys(selectedRowKeys);
     },
     getCheckboxProps: (record) => ({
-      disabled: authKeys[record.auth] > authKeys[LoginUserAuth]
+      disabled: authKeys[record.roles_id] > authKeys[LoginUserAuth]
     }),
   };
   const handleSaveClick = () => {
@@ -287,7 +278,7 @@ export default function AuthManage() {
     LoginUserAuth === "二级权限" && 
     changeNewUser({
       type: "changeNewUser",
-      payload: {auth: "三级权限"}
+      payload: {roles_id: "三级权限"}
     })
   }
   const handleSureClick = () => {
@@ -299,14 +290,14 @@ export default function AuthManage() {
           key: myState.num,
         }
       });
-      console.log(myState)
+      console.log('myState',myState)
 
         changeUsers({
           type: "addUser",
           payload: [myState]
         });
       setState("manage");
-      console.log(myState)
+      console.log('myState2',myState)
       // 清空
       changeNewUser({
         type: "clearNewUser",
@@ -319,7 +310,7 @@ export default function AuthManage() {
   }
   return (
     <div /*style={{padding: "20px 20px 0 20px"}}*/>
-                 <div className = { styles.title }>
+      <div className = { styles.title }>
                <span>
                  账号权限
                </span>
@@ -360,12 +351,12 @@ export default function AuthManage() {
           columns={columns} 
           rowSelection={rowSelection} 
           dataSource={state === "manage" ? usersData : [myState]}
-          pagination={false}
+          pagination={true}
         /> 
       {
         state === "manage" && 
         <>
-          <Pagination />
+          {/*<Pagination />*/}
           <Button 
             type="primary"
             className={styles.saveBtn}

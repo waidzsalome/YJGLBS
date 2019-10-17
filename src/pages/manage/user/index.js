@@ -16,14 +16,15 @@ class NormalLoginForm extends React.Component {
           }
           else {
             const data1 = {
-              password: values.newpassword2
+              newPassword: values.newpassword2,
+              oldPassword: values.oldpassword
             }
             const data = qs.stringify(data1);
             axios({
               method:"POST",
               url:"http://yjxt.elatis.cn/users/alterPwd",
               headers:{
-                "token":"PA=CgLFIbfyusD005/6R3ra[K0<PX35WDtzw6iXRI0V5C3w<duQhzMS]7O5>A0mx",
+                "token":sessionStorage.getItem("token"),
                 "Content-Type":"application/x-www-form-urlencoded"
               },
               data: data
@@ -32,6 +33,9 @@ class NormalLoginForm extends React.Component {
               (res)=> {
                 if(res.data.code === 0) {
                   message.success("修改成功");
+                  sessionStorage.clear();
+                  window.location.href="/login"
+                  
                 }
                 else {
                   message.error(res.data.message);
@@ -100,12 +104,12 @@ class NormalLoginForm extends React.Component {
             />,
           )}
         </Form.Item>
-        <Form.Item>
+        <Form.Item className = {styles.alter}>
           {/* {getFieldDecorator('remember', {
             valuePropName: 'checked',
             initialValue: true,
           })(<Checkbox>Remember me</Checkbox>)} */}
-          <Button type="primary" htmlType="submit" className="login-form-button" >
+          <Button type="primary" htmlType="submit"  >
             修改密码
           </Button>
         </Form.Item>
