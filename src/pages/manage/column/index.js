@@ -63,7 +63,7 @@ export default function ColManage() {
         let _weight = [];
         let  _data = JSON.parse(JSON.stringify(res.data.data));
         setColsData(_data);
-        // 这里是导致bug的原因，map数组中是引用类型，会改变原数组
+        // 这里是导致bug的原因，map数组有元素是引用类型，可能会改变原数组
         setCols(_data.map(item => {
           _weight.push(true);
           setWeightIsNum(_weight);
@@ -84,22 +84,26 @@ export default function ColManage() {
   useEffect(() => {
     if(!saveClick) return;
     if(colsData.length !== 0) {
-      console.log(secCols)
-      colsData.map((item, index)=> {
-        console.log(item)
-        let _item = {...item, title: item.newCol, }
-        delete item.newCol;
+      let _colsData = colsData.map(item => {
+        let _item = {...item, title: item.newCol }
+        if(!_item.sec) {
+          _item = {..._item, sec: []};
+        }
+        delete _item.newCol;
+        delete _item.col;
         return _item;
       });
+      console.log(_colsData)
       colsData.sort((a, b) => {
         return a.weight - b.weight;
       });
       const _data = JSON.stringify({
         name: "column",
         value: {
-          ...colsData,
+          ..._colsData,
         }
       });
+      
       axios({
         method: "POST",
         url: "http://yjxt.elatis.cn/options/update",
@@ -251,26 +255,26 @@ export default function ColManage() {
     setArticles(arr);
   }
   const handleAddSeColClick = () => {
-    let arr = [...secCols];
-    arr.push({
+    let _secCols = [...secCols];
+    _secCols.push({
       key: `${parseInt(secCols[secCols.length-1].key)+1}`,
-      col: "新栏目",
+      title: "新栏目",
     });
-    setSecCols(arr);
+    setSecCols(_secCols);
   }
   const handleEditClick = (index) => {
-    const arr = [...edit];
-    arr.splice(index, 1 ,true);
-    setEdit(arr);
+    const _edit = [...edit];
+    _edit.splice(index, 1 ,true);
+    setEdit(_edit);
   }
   const handleArtiChange = (e, index) => {
-    let article = articles[index];
-    article = {...article, articleName: e.target.value};
-    let arr = [...articles];
-    arr.splice(index,1,article);
-    setArticles(arr);
+    let _article = articles[index];
+    _article = {..._article, articleName: e.target.value};
+    let _articles = [...articles];
+    _articles.splice(index,1,_article);
+    setArticles(_articles);
   }
-  const handleASureClick = (index, record) => {
+  const handleASureClick = index => {
     const arr = [...edit];
     arr.splice(index, 1 ,false);
     setEdit(arr);
@@ -280,9 +284,9 @@ export default function ColManage() {
     if(editState === "二级" && _value !== (record.state ? 1 : 2)) {
        let article = articles[index];
        article = {...article, state: _value === 1 ? true : false};
-       let arr = [...articles];
-       arr.splice(index, 1, article);
-       setArticles(arr);
+       let _articles = [...articles];
+       _articles.splice(index, 1, article);
+       setArticles(_articles);
     } else if(editState === "一级" && _value !== (record.state ? 1 : 2)) {
       let _cols = [...editData];
       let _col = _cols[index];
@@ -308,9 +312,9 @@ export default function ColManage() {
     setSecCols(_secCols);
   }
   const handleDelClick = (index) => {
-    let arr = [...articles];
-    arr.splice(index, 1);
-    setArticles(arr);
+    let _articles = [...articles];
+    _articles.splice(index, 1);
+    setArticles(_articles);
   }
   const DelSecCol = () => {
 
