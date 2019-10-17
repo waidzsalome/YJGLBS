@@ -85,7 +85,7 @@ class NormalLoginForm extends React.Component {
               忘记密码
             </a>
             <Button type="primary" htmlType="submit" className="login-form-button">
-              Log in
+              登录
             </Button>
             Or <a href="">现在登录!</a>
           </Form.Item>
