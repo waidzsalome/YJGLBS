@@ -114,6 +114,7 @@ const Message = ()=> {
           }
         }
       )
+      return null;
     })
   }
   const markAsUnRead = ()=> {
@@ -142,6 +143,7 @@ const Message = ()=> {
           }
         }
       )
+      return null;
     })
   }
 
