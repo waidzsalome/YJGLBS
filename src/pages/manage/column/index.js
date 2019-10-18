@@ -13,9 +13,9 @@ export default function ColManage() {
   const [colsData, setColsData] = useState([]);
   // 后端data
   const [data, setCols] = useState([]);
-  //二级栏目文章列表
+  // 二级栏目文章列表
   const [articles, setArticles] = useState([]);
-  //二级栏目列表
+  // 二级栏目列表
   const [secCols, setSecCols] = useState([]);
   // 待编辑的data
   const [editData, setEditData] = useState([]);
@@ -35,6 +35,10 @@ export default function ColManage() {
   // 暂时先用个变量控制weight输入框输入数值
   const [weightIsNum, setWeightIsNum] = useState([]);
   const [saveClick, setSaveClick] = useState(false);
+  // 存放文章分类的变量
+  const [artiCategory, setArtiCategory] = useState("");
+  // 需要一个保存post数据(包括更改的二级栏目和文章列表)的变量，由category控制
+  const [] = useState([]);
   
   const renderRadio = (text, record, index) => {
     const State =
@@ -50,18 +54,20 @@ export default function ColManage() {
 
     if(col && colsData.length!==0) {
       let _cols = colsData;
+      // console.log(_cols)
       let _col = _cols.find(item => {
         return item.title === col;
       });
-      let _secCol = _col && _col.sec;
+      let _secCol = _col ? _col.sec : [];
       setSecCols(_secCol);
     }
   }, [col, colsData, data]);
 
   useEffect(() => {
-    // 后端数据渲染进data里
+    // console.log(sessionStorage.getItem("token"))
     axios.get("http://yjxt.elatis.cn/options/name/column").then(res => {
       if(res.data.code === 0) {
+        setArtiCategory(`/${res.data.data[0].title}/${(res.data.data[0].sec)[0].title}`)
         let _weight = [];
         let  _data = JSON.parse(JSON.stringify(res.data.data));
         setColsData(_data);
@@ -76,12 +82,24 @@ export default function ColManage() {
     }).catch(err => {
       message.error(err);
     });
-    // 根据secCol获取文章列表 path: 新闻中心/二级栏目1
+    // 调用最新文章数据接口(传入category)
     setArticles(dataSource.articles[0].articles);
     // useState()是异步的，需要后端能直接返回文章数量
     setEdit([false, false, false]);
 
   }, []);
+
+  useEffect(() => {
+    console.log(artiCategory);
+    // 根据分类动态获取文章列表
+    artiCategory && axios.get(`http://yjxt.elatis.cn/posts/getNew?category=${artiCategory}`).then(res => {
+
+        if(res.data.code === 0) {
+          console.log(res.data.data)
+        }
+      
+    }).catch(err => message.error(err.message));
+  }, [artiCategory]);
 
   useEffect(() => {
     if(!saveClick) return;
@@ -192,8 +210,8 @@ export default function ColManage() {
       dataIndex: "articleName",
       key: "articleName",
       render: (text,record,index) => {
-        return edit[index] ? <Input defaultValue={text} style={{width: 200}} onChange={(e) => handleArtiChange(e, index)}/>:
-        <span>{text}</span>
+        // return edit[index] ? <Input defaultValue={text} style={{width: 200}} onChange={(e) => handleArtiChange(e, index)}/>:
+        return <span>{text}</span>
       }
     },
     {
@@ -241,40 +259,53 @@ export default function ColManage() {
     setEditState("一级");
     setEditData([...data]);
   }
-  const handleColClick = (item) => {
-    setCol(item.title);
-  }
+  // 点击二级栏目
   const handleSecColClick = ({item, key}) => {
     // 需要后端文章数量的数据
     setEdit([false, false, false]);
     setSecColKey(key);
     setSecCol(item.props.children);
     // 每次点击二级栏目名，获取后端数据
-    const arr = dataSource.articles.find((item) => {
-      return item.key === key;
-    }).articles;
-    setArticles(arr);
+    // const arr = dataSource.articles.find((item) => {
+    //   return item.key === key;
+    // }).articles;
+    // setArticles(arr);
   }
+   // 点击一级栏目
+  const handleColClick = (item) => {
+    setCol(item.title);
+  }
+  // 新增二级栏目
   const handleAddSeColClick = () => {
+    // 这里直接改colsData就行了，不用setSecCols，因为useEffect会监控colsData改变secCols。
     let _secCols = [...secCols];
     _secCols.push({
       key: `${secCols.length!==0 ? parseInt(secCols[secCols.length-1].key)+1 : 1}`,
       title: "新栏目",
     });
-    setSecCols(_secCols);
+    let _colsData = JSON.parse(JSON.stringify(colsData));
+    _colsData = _colsData.map((item) => {
+      if(item.title === col) {
+        return {...item, sec: _secCols};
+      } else {
+        return item;
+      }
+    })
+    console.log(_colsData)
+    setColsData(_colsData);
   }
   const handleEditClick = (index) => {
     const _edit = [...edit];
     _edit.splice(index, 1 ,true);
     setEdit(_edit);
   }
-  const handleArtiChange = (e, index) => {
-    let _article = articles[index];
-    _article = {..._article, articleName: e.target.value};
-    let _articles = [...articles];
-    _articles.splice(index,1,_article);
-    setArticles(_articles);
-  }
+  // const handleArtiChange = (e, index) => {
+  //   let _article = articles[index];
+  //   _article = {..._article, articleName: e.target.value};
+  //   let _articles = [...articles];
+  //   _articles.splice(index,1,_article);
+  //   setArticles(_articles);
+  // }
   const handleASureClick = index => {
     const arr = [...edit];
     arr.splice(index, 1 ,false);
@@ -302,7 +333,6 @@ export default function ColManage() {
     setSecColEdit(true);
   }
   const handleRenameSureClick = () => {
-    console.log(secColKey)
     setSecColEdit(false);
     let _secCols = [...secCols];
     let _secCol = _secCols.find(item => {
@@ -311,7 +341,15 @@ export default function ColManage() {
     let index = _secCols.indexOf(_secCol);
     _secCol.title = secCol;
     _secCols.splice(index, 1, _secCol);
-    setSecCols(_secCols);
+    // setSecCols(_secCols);
+    // let _data = [...data];
+    // _data.forEach((item,index) => {
+    //   if(item.title === col) {
+    //     _data[index] = {..._data[index], sec: _secCols};
+    //   }
+    // })
+    // console.log(_data)
+    // setCols(_data);
   }
   const handleDelClick = (index) => {
     let _articles = [...articles];
@@ -352,8 +390,13 @@ export default function ColManage() {
   }
   const handleSaveClick = () => {
     setLoading(true);
-    setSaveClick(true);
-    setColsData(editData);
+    if(editState === "二级") {
+      
+    } else if(editState === "一级") {
+      setSaveClick(true);
+      setColsData(editData);
+    }
+      
   }
   return (
     <React.Fragment>
