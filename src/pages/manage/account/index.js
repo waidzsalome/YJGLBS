@@ -16,15 +16,16 @@ const initialState = {
   "name": "admin",
   "section": "123",
   "roles_id": "一级权限",
-  "password": "e10adc3949ba59abbe56e057f20f883e",
+  "password": "e10adc39",
   "post_num": 1
 };
 const initialUsersData = [];
 
 const usersRuducer = (state, action) => {
-  console.log('state',state)
+  console.log('state',state);
   switch(action.type) {
     case "initUsers":
+      console.log('action.payload',...action.payload)
       return [
         ...state,
         ...action.payload,
@@ -97,7 +98,7 @@ export default function AuthManage() {
       url:'http://yjxt.elatis.cn/users/getByRole',
       headers: {
         'content-type': 'application/json',
-        'token': sessionStorage.getItem('token')
+        'token': localStorage.getItem('token')
       }
     }).then(res=>{
       changeUsers({
@@ -272,7 +273,7 @@ export default function AuthManage() {
   };
   const handleSaveClick = () => {
     setLoading(true);
-  }
+  };
   const handleAddClick = () => {
     setState("add");
     LoginUserAuth === "二级权限" && 
@@ -280,9 +281,9 @@ export default function AuthManage() {
       type: "changeNewUser",
       payload: {roles_id: "三级权限"}
     })
-  }
+  };
   const handleSureClick = () => {
-    
+    console.log(myState.num)
     if(myState.num) {
       changeNewUser({
         type: "changeNewUser",
@@ -292,12 +293,31 @@ export default function AuthManage() {
       });
       console.log('myState',myState)
 
-        changeUsers({
-          type: "addUser",
-          payload: [myState]
-        });
+      changeUsers({
+        type: "addUser",
+        payload: [myState]
+      });
+      console.log('statesure', usersData)
+      console.log('myState2',myState);
+      axios({
+        method: 'POST',
+        url:'http://yjxt.elatis.cn/users/alterOtherInfo',
+        headers: {
+          'content-type': 'application/json',
+          'token': localStorage.getItem('token')
+        },
+        data: {
+          "id": 3,
+          "password": myState.password,
+          "section": "后端"
+        }
+      }).then(res => {
+        console.log(res)
+      }).catch(err => {
+        console.log(err)
+      });
       setState("manage");
-      console.log('myState2',myState)
+
       // 清空
       changeNewUser({
         type: "clearNewUser",
@@ -311,10 +331,10 @@ export default function AuthManage() {
   return (
     <div /*style={{padding: "20px 20px 0 20px"}}*/>
       <div className = { styles.title }>
-               <span>
-                 账号权限
-               </span>
-            </div>
+        <span>
+          账号权限
+        </span>
+      </div>
       <div style={{overflow: "hidden"}}>
         <div className={styles.auths}>
           {
@@ -356,7 +376,6 @@ export default function AuthManage() {
       {
         state === "manage" && 
         <>
-          {/*<Pagination />*/}
           <Button 
             type="primary"
             className={styles.saveBtn}

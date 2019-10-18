@@ -4,6 +4,7 @@ import { connect } from 'dva';
 import styles from './index.less';
 import Oval from '../../assets/Oval.png';
 import axios from 'axios'
+// import { Session } from 'inspector';
 
 @connect(
   ({login, loading}) => ({
@@ -37,9 +38,9 @@ class NormalLoginForm extends React.Component {
         }).then(data =>{
           console.log(data);
           if (data.data.code === 0 ) {
-
             sessionStorage.setItem('token', data.data.data.token);
             message.success("登录成功");
+            console.log("登录成功",)
             window.location.href = '/manage'
           }
           else {
