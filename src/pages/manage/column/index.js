@@ -7,6 +7,8 @@ import axios from "axios";
 
 export default function ColManage() {
 
+  // 
+  const [initialState, setInitialState] = useState({});
   // 用与更新后端接口的临时变量
   const [colsData, setColsData] = useState([]);
   // 后端data
@@ -85,7 +87,7 @@ export default function ColManage() {
     if(!saveClick) return;
     if(colsData.length !== 0) {
       let _colsData = colsData.map(item => {
-        let _item = {...item, title: item.newCol }
+        let _item = {...item, title: item.newCol || item.title}
         if(!_item.sec) {
           _item = {..._item, sec: []};
         }
@@ -93,7 +95,6 @@ export default function ColManage() {
         delete _item.col;
         return _item;
       });
-      console.log(_colsData)
       colsData.sort((a, b) => {
         return a.weight - b.weight;
       });
@@ -144,7 +145,7 @@ export default function ColManage() {
       dataIndex: "newCol",
       key: "newCol",
       className: `${styles.column}`,
-      render: (text,record,index) => <Input placeholder="请输入新栏目名" style={{width: "150px"}} onChange={(e) => handleColChange(e, "title", index)}/>
+      render: (text,record,index) => <Input placeholder="请输入新栏目名" style={{width: "150px"}} onChange={(e) => handleColChange(e, "newCol", index)} defaultValue={record.title}/>
     },
     {
       title: "页面状态",
@@ -165,7 +166,7 @@ export default function ColManage() {
       dataIndex: "link",
       key: "link",
       className: `${styles.column}`,
-      render: (text,record,index) => <Input placeholder="http://" onChange={(e) => handleColChange(e, "link", index)}/>
+      render: (text,record,index) => <Input placeholder="http://" onChange={(e) => handleColChange(e, "link", index)} defaultValue={record.link}/>
     },
     {
       title: () => (
@@ -230,7 +231,7 @@ export default function ColManage() {
     }
   ];
   const handleNewBtn = () => {
-    setEditData([...editData,{key: `${editData.length+1}`, col: "新栏目"}])
+    setEditData([...editData,{key: `${editData.length+1}`, title: "新栏目", weight: 100, state: true,}])
   }
   const handleDelBtn = (index) => {
     editData.splice(index, 1);
@@ -257,7 +258,7 @@ export default function ColManage() {
   const handleAddSeColClick = () => {
     let _secCols = [...secCols];
     _secCols.push({
-      key: `${parseInt(secCols[secCols.length-1].key)+1}`,
+      key: `${secCols.length!==0 ? parseInt(secCols[secCols.length-1].key)+1 : 1}`,
       title: "新栏目",
     });
     setSecCols(_secCols);
@@ -301,13 +302,14 @@ export default function ColManage() {
     setSecColEdit(true);
   }
   const handleRenameSureClick = () => {
+    console.log(secColKey)
     setSecColEdit(false);
     let _secCols = [...secCols];
-    let _secCol = secCols.find(item => {
+    let _secCol = _secCols.find(item => {
       return item.key === secColKey;
     });
     let index = _secCols.indexOf(_secCol);
-    _secCol.col = secCol;
+    _secCol.title = secCol;
     _secCols.splice(index, 1, _secCol);
     setSecCols(_secCols);
   }
@@ -326,13 +328,12 @@ export default function ColManage() {
     _secCols.splice(index, 1);
     setSecCols(_secCols);
     _secCols[0] && setSecCol(_secCols[0].col);
-    setSecColKey(_secCols[0].key);
+    _secCols[0] && setSecColKey(_secCols[0].key);
   }
   const handleColChange = (e, id, index) => {
-    
+    // 先这样，优化代码的时候记得改一下，这里只有在输入框改变的时候才会给colsData添加newCol,虽然默认newCol框值为title的值，但是没有newCol属性，所有是undefined。
     let _value = id === "weight" ? parseInt(e.target.value) : e.target.value;
     let _weightIsNum = [...weightIsNum];
-    console.log(_weightIsNum)
     _weightIsNum.splice(index, 1 ,true);
     setWeightIsNum(_weightIsNum);
     if(id === "weight" && Number.isNaN(_value)) {

@@ -51,6 +51,7 @@ const Log = ()=> {
       data:data
     }).then((res)=> {
       if(res.data.code === 0) {
+        
         let resData = res.data.data.data.map((item,index)=> { 
           return {
             ...item,
