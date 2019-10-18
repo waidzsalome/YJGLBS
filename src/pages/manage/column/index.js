@@ -103,6 +103,7 @@ export default function ColManage() {
 
   useEffect(() => {
     if(!saveClick) return;
+    console.log(colsData)
     if(colsData.length !== 0) {
       let _colsData = colsData.map(item => {
         let _item = {...item, title: item.newCol || item.title}
@@ -122,7 +123,7 @@ export default function ColManage() {
           ..._colsData,
         }
       });
-      
+      console.log(_data)
       axios({
         method: "POST",
         url: "http://yjxt.elatis.cn/options/update",
@@ -249,7 +250,7 @@ export default function ColManage() {
     }
   ];
   const handleNewBtn = () => {
-    setEditData([...editData,{key: `${editData.length+1}`, title: "新栏目", weight: 100, state: true,}])
+    setEditData([...editData,{key: `${editData.length+1}`, title: "新栏目", weight: 100, state: true, sec: []}])
   }
   const handleDelBtn = (index) => {
     editData.splice(index, 1);
@@ -257,7 +258,7 @@ export default function ColManage() {
   }
   const handleEditBtn = () => {
     setEditState("一级");
-    setEditData([...data]);
+    setEditData([...colsData]);
   }
   // 点击二级栏目
   const handleSecColClick = ({item, key}) => {
@@ -291,7 +292,6 @@ export default function ColManage() {
         return item;
       }
     })
-    console.log(_colsData)
     setColsData(_colsData);
   }
   const handleEditClick = (index) => {
@@ -341,15 +341,6 @@ export default function ColManage() {
     let index = _secCols.indexOf(_secCol);
     _secCol.title = secCol;
     _secCols.splice(index, 1, _secCol);
-    // setSecCols(_secCols);
-    // let _data = [...data];
-    // _data.forEach((item,index) => {
-    //   if(item.title === col) {
-    //     _data[index] = {..._data[index], sec: _secCols};
-    //   }
-    // })
-    // console.log(_data)
-    // setCols(_data);
   }
   const handleDelClick = (index) => {
     let _articles = [...articles];
@@ -396,7 +387,6 @@ export default function ColManage() {
       setSaveClick(true);
       setColsData(editData);
     }
-      
   }
   return (
     <React.Fragment>
