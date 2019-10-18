@@ -158,9 +158,10 @@ const Message = ()=> {
       (res)=> {
         if(res.data.code === 0) {
           setmessageData(res.data.data);
+          console.log(res.data.data);
         }
         else {
-          message.error(res.data.message);
+          message.error(res.data.message,"message");
         }
       }
     ).catch((error)=>{
